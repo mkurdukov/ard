@@ -4,3 +4,5 @@ https://oneguyoneblog.com/2017/04/01/adding-128x64-pixels-white-oled-display-ard
 
 BLE
 https://www.intorobotics.com/5-cheap-methods-for-indoor-robot-localization-ble-beacon-apriltags-wifi-subpos-nfc-and-rfid/
+
+https://www.andreasjakl.com/parse-bluetooth-beacons-ibeacon-eddystone-arduino-101/
