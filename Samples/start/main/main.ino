@@ -1,3 +1,4 @@
+#include "Arduino.h"
 #include <Servo.h>
 #include "Mtrack.h"
 #include "Lcd.h"
@@ -15,11 +16,12 @@ void setup() {
 int index = 0;
 int maxindex = 3;
 void loop() {
+
 if(index>maxindex){  index = 0;}
   lcd.text("9999999", String(loading[index]));
   //display(loading[index]);
   delay(100);
   index++;
-  
+ 
 } 
 

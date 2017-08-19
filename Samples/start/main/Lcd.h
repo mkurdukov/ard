@@ -1,10 +1,12 @@
+#ifndef Lcd_h
+#define Lcd_h
+
+
 //https://github.com/greiman/SSD1306Ascii thank you man!
 #include "Arduino.h"
 #include "SSD1306Ascii.h"
-#include "SSD1306AsciiAvrI2c.h"
+#include "lcd/SSD1306AsciiAvrI2c.h"
 
-#ifndef Lcd_h
-#define Lcd_h
 
 
 class Lcd

@@ -1,6 +1,6 @@
 #include "Arduino.h"
 #include "SSD1306Ascii.h"
-#include "SSD1306AsciiAvrI2c.h"
+#include "lcd/SSD1306AsciiAvrI2c.h"
 #include "Lcd.h"
 
 SSD1306AsciiAvrI2c _oled;

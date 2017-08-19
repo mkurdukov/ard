@@ -24,8 +24,8 @@
 #ifndef SSD1306Ascii_h
 #define SSD1306Ascii_h
 #include "Arduino.h"
-#include "SSD1306init.h"
-#include "fonts/allFonts.h"
+#include "lcd/SSD1306init.h"
+#include "lcd/fonts/allFonts.h"
 //------------------------------------------------------------------------------
 /** SSD1306Ascii version YYYYMMDD */
 #define SDD1306_ASCII_VERSION 20160127
