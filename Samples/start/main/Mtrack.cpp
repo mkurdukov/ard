@@ -1,25 +1,54 @@
 #include "Arduino.h"
 #include "Mtrack.h"
+#include "Lcd.h"
 
-Mtrack::Mtrack(int pin)
+#include "Engine.h"
+
+Mtrack::Mtrack(Engine* left, Engine* right, Lcd *lcd)
 {
-  pinMode(pin, OUTPUT);
-  _pin = pin;
+ // pinMode(pinLeft, OUTPUT);
+ _left= left;
+ _right = right;
+  _lcd = lcd;
+  _lcd->text("Starting");
 }
 
-void Mtrack::dot()
+void Mtrack::forward()
 {
-  digitalWrite(_pin, HIGH);
-  delay(250);
+  _left->forward();
+  _right->forward();
+  _lcd->text("forward");
+}
+
+void Mtrack::back()
+{
+  _left->back();
+  _right->back();
+
+  _lcd->text("back");
+}
+
+void Mtrack::stopEngine()
+{
   
-  digitalWrite(_pin, LOW);
-  delay(250);  
+  _left->stopMe();
+  _right->stopMe();
+
+  _lcd->text("stop");
 }
 
-void Mtrack::dash()
+void Mtrack::turnLeft()
 {
-  digitalWrite(_pin, HIGH);
-  delay(1000);
-  digitalWrite(_pin, LOW);
-  delay(250);
+  _left->forward();
+  _right->back();
+
+  _lcd->text("Turning l");
+}
+
+void Mtrack::turnRight()
+{
+  _left->back();
+  _right->forward();
+
+ _lcd->text("Turning r");
 }

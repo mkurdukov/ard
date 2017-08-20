@@ -2,15 +2,23 @@
 #define Mtrack_h
 
 #include "Arduino.h"
+#include "Lcd.h"
+#include "Engine.h"
 
 class Mtrack
 {
   public:
-    Mtrack(int pin);
-    void dot();
-    void dash();
+    Mtrack(Engine* left, Engine* right, Lcd *lcd);
+    void forward();
+    void back();
+    void stopEngine();
+    void turnLeft();
+    void turnRight();
+
   private:
-    int _pin;
+    Engine *_left;
+    Engine *_right;
+    Lcd *_lcd;
 };
 
 #endif
