@@ -1,2 +1,26 @@
 classes:
 https://stackoverflow.com/questions/1735990/using-classes-with-the-arduino
+
+
+==============================================
+Arduino pin| shield on the Arduino | side-car shield
+=========|===================|================
+0              |NC                          |NC
+1              |NC                          |NC
+2              |NC                          |BRAKE A
+3              | PWM A                    |NC
+4              |NC                          |BRAKE B
+5              |NC                          |PWM A
+6              |NC                          |PWM B
+7              |NC                          |DIR A
+8              |BRAKE B                   |NC
+9              |BRAKE A                  |NC
+10            |NC                          |DIR B
+11            |PWM B                     |NC
+12            |DIR A                       |NC
+13            |DIR B                       |NC
+A1            |SNS 0                      |NC
+A2            |SNS 1                      |NC
+A3            |NC                         |SNS 0
+A4            |NC                         |SNS 1
+A5            |NC                         |NC
