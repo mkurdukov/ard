@@ -6,7 +6,6 @@
 
 Mtrack::Mtrack(Engine* left, Engine* right, Lcd *lcd)
 {
- // pinMode(pinLeft, OUTPUT);
  _left= left;
  _right = right;
   _lcd = lcd;

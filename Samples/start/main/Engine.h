@@ -5,14 +5,17 @@
 
 class Engine {
   public:
-    Engine(uint8_t pwm, uint8_t dir, uint8_t br);
+    Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns);
     void forward();
     void back();
     void stopMe();  
+    void updateSpeed(uint8_t speedValue);
   private:  
     uint8_t _pwm;
     uint8_t _dir;
-    uint8_t _br;
+    uint8_t _brake;
+    uint8_t _sns;
+    uint8_t _speedValue;
 };
 
 #endif
