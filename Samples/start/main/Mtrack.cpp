@@ -9,22 +9,25 @@ Mtrack::Mtrack(Engine* left, Engine* right, Lcd *lcd)
  _left= left;
  _right = right;
   _lcd = lcd;
-  _lcd->text("Starting");
+  char b[] = "Starting";
+  _lcd->line1(b);
 }
 
 void Mtrack::forward()
 {
   _left->forward();
   _right->forward();
-  _lcd->text("forward");
+  char f[] = "forward";
+  _lcd->line1(f);
 }
 
 void Mtrack::back()
 {
   _left->back();
   _right->back();
-
-  _lcd->text("back");
+char f[] = "back";
+  
+  _lcd->line1(f);
 }
 
 void Mtrack::stopEngine()
@@ -32,22 +35,22 @@ void Mtrack::stopEngine()
   
   _left->stopMe();
   _right->stopMe();
-
-  _lcd->text("stop");
+char f[] = "stop";
+  _lcd->line1(f);
 }
 
 void Mtrack::turnLeft()
 {
   _left->forward();
   _right->back();
-
-  _lcd->text("Turning l");
+char f[] = "Turning l";
+  _lcd->line1(f);
 }
 
 void Mtrack::turnRight()
 {
   _left->back();
   _right->forward();
-
- _lcd->text("Turning r");
+char f[] = "Turning r";
+ _lcd->line1(f);
 }

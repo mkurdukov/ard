@@ -7,23 +7,27 @@ Engine::Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns){
   _brake = brake;
   _sns = sns;
   _speedValue = 255;
+  _disabled = false;
   pinMode(_brake, OUTPUT);
   pinMode(_dir, OUTPUT);
 }
 
 void Engine::forward(){ 
+  if(_disabled) { return; } 
     digitalWrite(this->_brake, LOW);
   digitalWrite(this->_dir, HIGH);
   analogWrite(this->_pwm, _speedValue);
 }
 
 void Engine::back(){
+   if(_disabled) { return; }
   digitalWrite(this->_brake, LOW);
   digitalWrite(this->_dir, LOW);
   analogWrite(this->_pwm, _speedValue);  
 }
 
-void Engine::stopMe(){    
+void Engine::stopMe(){   
+   if(_disabled) { return; } 
   digitalWrite(this->_brake, HIGH);  
   analogWrite(this->_pwm, 0); 
 }
@@ -31,3 +35,7 @@ void Engine::stopMe(){
 void Engine::updateSpeed(uint8_t speedValue){
   this->_speedValue = speedValue;  
 }
+
+void Engine::disable(){   _disabled = true; }
+
+void Engine::enable(){   _disabled = false; }

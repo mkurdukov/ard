@@ -14,12 +14,14 @@ class Lcd
   public:
     Lcd(uint8_t address);
     void init();
-    void text(char ch);
-    void text(String line1);
-    void text(String line1,String line2);
-    void text(String line1,String line2,String line3);
-    void text(String line1,String line2,String line3,String line4);
+    
+    void line1(char t[]);
+    void line2(char t[]);
+    void line3(char t[]);
+    void line4(char t[]);
+
   private:
+    void line(uint8_t number, char t[]);
     uint8_t _address;
     SSD1306AsciiAvrI2c _oled;
 };

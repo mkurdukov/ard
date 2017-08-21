@@ -18,31 +18,13 @@ void Lcd::init()
  
 }
 
-void Lcd::text(char ch)
-{
- text(String(ch), "", "", "");
-}
+void Lcd::line1(char t[]){   line(0, t); }
+void Lcd::line2(char t[]){   line(2, t); }
+void Lcd::line3(char t[]){   line(4, t); }
+void Lcd::line4(char t[]){   line(6, t); }
 
-void Lcd::text(String line1)
+void Lcd::line(uint8_t number, char t[])
 {
-text(line1, "", "", "");
-}
-
-void Lcd::text(String line1,String line2)
-{
-text(line1, line2, "", "");
-}
-
-void Lcd::text(String line1,String line2,String line3)
-{
-  text(line1, line2, line3, "");
-}
-
-void Lcd::text(String line1,String line2,String line3,String line4)
-{
-  _oled.clear();  
-  _oled.println(line1);
-  _oled.println(line2);
-  _oled.println(line3);
-  _oled.println(line4);
+  _oled.setCursor(0, number);
+  _oled.write(t);
 }
