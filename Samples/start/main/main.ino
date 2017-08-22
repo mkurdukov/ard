@@ -26,13 +26,13 @@ void setup() {
 
 void loop() {
   tr->forward();
-  delay(1000);
+  delay(2000);
   tr->back();
-  delay(1000);
+  delay(2000);
   tr->turnLeft();
-  delay(1000);
+  delay(2000);
   tr->turnRight();
-  delay(1000);
+  delay(2000);
   tr->stopEngine();
-  delay(1000);
+    delay(1000);
 }

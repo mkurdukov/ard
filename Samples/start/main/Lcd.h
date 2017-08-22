@@ -15,15 +15,16 @@ class Lcd
     Lcd(uint8_t address);
     void init();
     
-    void line1(char t[]);
-    void line2(char t[]);
-    void line3(char t[]);
-    void line4(char t[]);
+    void line1(const char t[]);
+    void line2(const char t[]);
+    void line3(const char t[]);
+    void line4(const char t[]);
 
   private:
-    void line(uint8_t number, char t[]);
+    void line(uint8_t number, const char t[]);
     uint8_t _address;
     SSD1306AsciiAvrI2c _oled;
+    char _clearChars[5];
 };
 
 #endif
