@@ -20,11 +20,13 @@ class Lcd
     void line3(const char t[]);
     void line4(const char t[]);
 
+    char *convertToCharArray(int value);
+
   private:
     void line(uint8_t number, const char t[]);
     uint8_t _address;
     SSD1306AsciiAvrI2c _oled;
-    char _clearChars[5];
+    char *_convertToCharArray(int i, char *p);
 };
 
 #endif

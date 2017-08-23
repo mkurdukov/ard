@@ -29,3 +29,22 @@ void Lcd::line(uint8_t number, const char t[])
   _oled.setCursor(0, number);
   _oled.write(t);
 }
+
+char *Lcd::convertToCharArray(int i){
+  char *b = (char*)malloc(10 * sizeof(char));
+  _convertToCharArray(i, b);
+  return b;
+}
+
+char *Lcd::_convertToCharArray(int i, char *p){
+  if (i / 10 == 0) {
+    *p++ = i + '0';
+    *p = '\0';
+    return p;
+  }
+
+  p = _convertToCharArray(i / 10, p);
+  *p++ = i % 10 + '0';
+  *p = '\0';
+  return p;
+  }
