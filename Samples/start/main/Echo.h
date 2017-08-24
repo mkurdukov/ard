@@ -13,6 +13,7 @@ class Echo {
     uint8_t _trigPin;
     int _distance;
     Lcd *_lcd;
+    int _getDistance();
 };
 
 #endif
