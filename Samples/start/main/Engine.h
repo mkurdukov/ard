@@ -5,7 +5,7 @@
 
 class Engine {
   public:
-    Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns);
+    Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns, boolean inversed);
     void forward();
     void back();
     void stopMe();  
@@ -19,6 +19,7 @@ class Engine {
     uint8_t _sns;
     uint8_t _speedValue;
     boolean _disabled;
+    boolean _inversed;
 };
 
 #endif

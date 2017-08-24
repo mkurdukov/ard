@@ -1,13 +1,14 @@
 #include "Arduino.h"
 #include "Engine.h"
 
-Engine::Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns){
+Engine::Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns, boolean inversed){
   _pwm = pwm;
   _dir = dir;
   _brake = brake;
   _sns = sns;
   _speedValue = 255;
   _disabled = false;
+  _inversed = inversed;
   pinMode(_brake, OUTPUT);
   pinMode(_dir, OUTPUT);
 }
@@ -15,14 +16,14 @@ Engine::Engine(uint8_t pwm, uint8_t dir, uint8_t brake, uint8_t sns){
 void Engine::forward(){ 
   if(_disabled) { return; } 
     digitalWrite(this->_brake, LOW);
-  digitalWrite(this->_dir, HIGH);
+  digitalWrite(this->_dir, _inversed ? LOW : HIGH);
   analogWrite(this->_pwm, _speedValue);
 }
 
 void Engine::back(){
    if(_disabled) { return; }
   digitalWrite(this->_brake, LOW);
-  digitalWrite(this->_dir, LOW);
+  digitalWrite(this->_dir, _inversed ? HIGH : LOW);
   analogWrite(this->_pwm, _speedValue);  
 }
 

@@ -30,8 +30,8 @@ void setup() {
   Serial.begin(9600);
   lcd = new Lcd(I2C_ADDRESS);
   lcd->init();
-  left =    new Engine(PWM_A, DIR_A,BRAKE_A, SNS_A);
-  right =   new Engine(PWM_B, DIR_B,BRAKE_B, SNS_B);
+  left =    new Engine(PWM_A, DIR_A,BRAKE_A, SNS_A, false);
+  right =   new Engine(PWM_B, DIR_B,BRAKE_B, SNS_B, true);
   tr = new Mtrack(left, right, lcd);
   frontEcho = new Echo(FRONT_ECHO_PIN, FRONT_TRIG_PIN, lcd);
   lcd->line1(STARTING);
