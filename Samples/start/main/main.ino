@@ -4,6 +4,7 @@
 #include "Lcd.h"
 #include "Engine.h"
 #include "Echo.h"
+#include <avr/wdt.h>
 
 #define I2C_ADDRESS 0x3C
 
@@ -35,6 +36,7 @@ void setup() {
   tr = new Mtrack(left, right, lcd);
   frontEcho = new Echo(FRONT_ECHO_PIN, FRONT_TRIG_PIN, lcd);
   lcd->line1(STARTING);
+  wdt_enable(WDTO_1S);//8
 }
 
 void loop() {
@@ -51,4 +53,5 @@ void loop() {
     movingforward = true;
   }
   delay(DELAY_AFTER_LOOP_FINISHED);
+  wdt_reset();
 }
