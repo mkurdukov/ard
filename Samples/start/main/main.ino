@@ -23,8 +23,8 @@ Echo *frontEcho;
 int forwardDistance = 0;
 boolean turningLeft = false;
 boolean movingforward = false;
+int incomingByte = 0;
 
-//char loading[] = "-\\|/";
 char STARTING[] = "Starting!";
 
 void setup() {      
@@ -40,6 +40,24 @@ void setup() {
 }
 
 void loop() {
+
+/*
+
+  if (Serial.available() > 0) {
+                // read the incoming byte:
+                incomingByte = Serial.read();
+
+                // say what you got:
+                Serial.print("I received: ");
+                Serial.println(incomingByte, DEC);
+        }
+        else{
+          Serial.println("Serial is not available");
+          }
+  
+  */
+
+  
   forwardDistance = frontEcho->getDistance();
   if(forwardDistance <= MAX_FRONT_DISTANCE_CM){
     if(!turningLeft){       tr->stopEngine();       }
