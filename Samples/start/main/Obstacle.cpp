@@ -15,12 +15,14 @@ Obstacle::Obstacle(int maxDistanceToObstacleCm, uint8_t pinIk, uint8_t pinTrig, 
 
 bool Obstacle::isObstacle(){ 
   _getDistance();
+  _ikObstacle = digitalRead(_pinIk);
+  
   if(_distance == 0) {
     _isEcho = false;
-    return digitalRead(_pinIk);
+    return _ikObstacle;
   }
-  _isEcho = true;
-  return _distance<=_maxDistanceToObstacleCm;
+  _isEcho = !_ikObstacle;
+  return _distance<=_maxDistanceToObstacleCm || _ikObstacle;
 }
 
 int Obstacle::getDistance(){

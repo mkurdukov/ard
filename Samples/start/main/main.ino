@@ -16,7 +16,7 @@ const int OBSTACLE_PIN = 7;
 const int DELAY_AFTER_LOOP_FINISHED = 100;
 const int SERVO_VERTICAL_PIN = 5, SERVO_HORIZONTAL_PIN = 6;
 
-const int MAX_FRONT_DISTANCE_CM = 20;
+const int MAX_FRONT_DISTANCE_CM = 40;
 
 Obstacle obstacle(MAX_FRONT_DISTANCE_CM, OBSTACLE_PIN, FRONT_TRIG_PIN, FRONT_ECHO_PIN);
 
@@ -80,10 +80,17 @@ void loop() {
     Serial.print(obstacle.isEcho());
     Serial.print(" distance: ");
     Serial.println(obstacle.getLastDistance());
-    
+
     if(isObstacle){
       Serial.println("Go Left");
       if(!turningLeft){       tr->stopEngine();       }
+      if(!obstacle.isEcho()){
+        //TODO: Remove hardcoded delay!!!!
+        tr->back();
+        delay(1000);
+        tr->turnLeft();
+        delay(500);
+      }
       tr->turnLeft();
       movingforward = false;
       turningLeft = true;

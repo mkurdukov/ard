@@ -19,6 +19,7 @@ class Obstacle
     uint8_t _pinEcho;
     int _maxDistanceToObstacleCm;
     int _distance;
+    bool _ikObstacle;
     bool _isEcho;
     long _duration;
 };
