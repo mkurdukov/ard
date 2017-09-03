@@ -6,11 +6,21 @@
 class Obstacle
 {
   public:
-    Obstacle(uint8_t pin);
-    void init();
+    Obstacle(int maxDistanceToObstacleCm, uint8_t pinIk, uint8_t pinTrig, uint8_t pinEcho);
     bool isObstacle();
+    int getDistance();
+    int getLastDistance();
+    bool isEcho();
+    
   private:
-    uint8_t _pin;
+    int _getDistance();
+    uint8_t _pinIk;
+    uint8_t _pinTrig; 
+    uint8_t _pinEcho;
+    int _maxDistanceToObstacleCm;
+    int _distance;
+    bool _isEcho;
+    long _duration;
 };
 
 #endif
