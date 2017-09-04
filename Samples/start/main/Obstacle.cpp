@@ -1,12 +1,13 @@
 #include "Arduino.h"
 #include "Obstacle.h"
 
-Obstacle::Obstacle(int maxDistanceToObstacleCm, uint8_t pinIk, uint8_t pinTrig, uint8_t pinEcho)
+Obstacle::Obstacle(int maxDistanceToObstacleCm, int minDistanceToObstacleCm, uint8_t pinIk, uint8_t pinTrig, uint8_t pinEcho)
 {
   _pinIk = pinIk;
   _pinTrig=pinTrig;
   _pinEcho=pinEcho;
   _maxDistanceToObstacleCm = maxDistanceToObstacleCm;
+  _minDistanceToObstacleCm = minDistanceToObstacleCm;
 
   pinMode(_pinIk, INPUT);
   pinMode(_pinTrig, OUTPUT);
@@ -16,13 +17,15 @@ Obstacle::Obstacle(int maxDistanceToObstacleCm, uint8_t pinIk, uint8_t pinTrig, 
 bool Obstacle::isObstacle(){ 
   _getDistance();
   _ikObstacle = digitalRead(_pinIk);
+  _tooClose = _ikObstacle;
   
   if(_distance == 0) {
     _isEcho = false;
     return _ikObstacle;
   }
-  _isEcho = !_ikObstacle;
-  return _distance<=_maxDistanceToObstacleCm || _ikObstacle;
+  _isEcho = _distance<=_maxDistanceToObstacleCm;
+  _tooClose = _distance <=_minDistanceToObstacleCm || _ikObstacle;
+  return _isEcho || _ikObstacle;
 }
 
 int Obstacle::getDistance(){
@@ -35,6 +38,14 @@ int Obstacle::getLastDistance(){
 
 bool Obstacle::isEcho(){
   return _isEcho;
+}
+
+bool Obstacle::isIk(){
+  return _ikObstacle;
+}
+
+bool Obstacle::tooClose(){
+  return _tooClose;
 }
 
 int Obstacle::_getDistance(){

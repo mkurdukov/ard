@@ -9,6 +9,7 @@
 
 #define I2C_ADDRESS 0x3C
 
+const int DELAY_GOING_LEFT = 500, DELAY_GOING_FORWARD = 200;
 const int PWM_A = 3, DIR_A = 12, BRAKE_A = 9, SNS_A = A0; //Engine left
 const int PWM_B = 11, DIR_B = 13, BRAKE_B = 8, SNS_B = A1; //Engine right
 const int FRONT_ECHO_PIN = 4, FRONT_TRIG_PIN = 2;
@@ -16,9 +17,10 @@ const int OBSTACLE_PIN = 7;
 const int DELAY_AFTER_LOOP_FINISHED = 100;
 const int SERVO_VERTICAL_PIN = 5, SERVO_HORIZONTAL_PIN = 6;
 
-const int MAX_FRONT_DISTANCE_CM = 40;
+const int MAX_FRONT_DISTANCE_CM = 20;
+const int MIN_FRONT_DISTANCE_CM = 10;
 
-Obstacle obstacle(MAX_FRONT_DISTANCE_CM, OBSTACLE_PIN, FRONT_TRIG_PIN, FRONT_ECHO_PIN);
+Obstacle obstacle(MAX_FRONT_DISTANCE_CM, MIN_FRONT_DISTANCE_CM, OBSTACLE_PIN, FRONT_TRIG_PIN, FRONT_ECHO_PIN);
 
 Lcd *lcd;
 Mtrack *tr;
@@ -72,28 +74,30 @@ void loop() {
     head->bottom();  
   }
   
-
     bool isObstacle = obstacle.isObstacle();
     Serial.print("Is Obstacle: ");
     Serial.print(isObstacle);
     Serial.print(" Is Echo: ");
     Serial.print(obstacle.isEcho());
+    Serial.print(" Is Ik: ");
+    Serial.print(obstacle.isIk());
+
     Serial.print(" distance: ");
     Serial.println(obstacle.getLastDistance());
 
     if(isObstacle){
-      Serial.println("Go Left");
-      if(!turningLeft){       tr->stopEngine();       }
-      if(!obstacle.isEcho()){
-        //TODO: Remove hardcoded delay!!!!
-        tr->back();
-        delay(1000);
-        tr->turnLeft();
-        delay(500);
+      Serial.println("Going Left");
+      if(!turningLeft){       
+          tr->stopEngine();       
+          if(obstacle.tooClose()){
+            tr->back();
+            delay(500);
+          }
       }
       tr->turnLeft();
       movingforward = false;
       turningLeft = true;
+      delay(DELAY_GOING_LEFT);
     }
     else{
       Serial.println("Go Forward");
@@ -104,6 +108,6 @@ void loop() {
     
     Serial.println("New Loop");
     wdt_reset();
-    delay(DELAY_AFTER_LOOP_FINISHED);
-    wdt_reset();
+      delay(DELAY_GOING_FORWARD);
+
 }
