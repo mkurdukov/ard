@@ -23,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     TextView txtInfo;
     private BluetoothAdapter bt = null;
     private Set<BluetoothDevice> devices;
+    public static String EXTRA_ADDRESS = "device_address";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         }
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, list);
         lstDevices.setAdapter(adapter);
-        lstDevices.setOnItemClickListener(myListClickListener); //Method called when the device from the list is clicked
+        lstDevices.setOnItemClickListener(myListClickListener);
 
     }
 
@@ -92,10 +93,10 @@ public class MainActivity extends AppCompatActivity {
             // Make an intent to start next activity.
             Toast.makeText(getApplicationContext(), info + " - " + address, Toast.LENGTH_LONG).show();
 
-            //Intent i = new Intent(DeviceList.this, ledControl.class);
-            //Change the activity.
-            //i.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
-            //startActivity(i);
+            Intent i = new Intent(MainActivity.this, TrackActivity.class);
+
+            i.putExtra(EXTRA_ADDRESS, address);
+            startActivity(i);
         }
     };
 
