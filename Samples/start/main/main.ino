@@ -5,6 +5,7 @@
 #include "Engine.h"
 #include "Obstacle.h"
 #include "HeadServo.h"
+#include "CommandDictionary.h"
 #include <avr/wdt.h>
 
 #define I2C_ADDRESS 0x3C
@@ -20,15 +21,13 @@ const int SERVO_VERTICAL_PIN = 5, SERVO_HORIZONTAL_PIN = 6;
 const int MAX_FRONT_DISTANCE_CM = 20;
 const int MIN_FRONT_DISTANCE_CM = 10;
 
+//Obstacle *obstacle;
 Obstacle obstacle(MAX_FRONT_DISTANCE_CM, MIN_FRONT_DISTANCE_CM, OBSTACLE_PIN, FRONT_TRIG_PIN, FRONT_ECHO_PIN);
-
+CommandDictionary cmd(true);
 Lcd *lcd;
 Mtrack *tr;
 Engine *left;
 Engine *right;
-//Echo *frontEcho;
-//Obstacle *obstacle;
-
 
 HeadServo *head;
 int forwardDistance = 0;
@@ -39,8 +38,8 @@ int incomingByte = 0;
 char STARTING[] = "Starting!";
 
 void setup() {      
-  Serial.begin(9600);
   Serial.println("Starting");
+  
   lcd = new Lcd(I2C_ADDRESS);
   lcd->init();
   lcd->line1(STARTING);
@@ -48,32 +47,23 @@ void setup() {
   right =   new Engine(PWM_B, DIR_B,BRAKE_B, SNS_B, true);
   tr = new Mtrack(left, right, lcd);
   head = new HeadServo(SERVO_VERTICAL_PIN, SERVO_HORIZONTAL_PIN,lcd);
-  wdt_enable(WDTO_4S);//8
   
+  wdt_enable(WDTO_4S);//8
 }
 
-
-
 void loop() {
-    if (Serial.available() > 0) {
-                // read the incoming byte:
-                incomingByte = Serial.read();
-
-                // say what you got:
-                Serial.print("I received: ");
-                Serial.println(incomingByte);
-        }
-
-  if(incomingByte == 53) //5
-  {
-    head->top();  
-  }
-
-  if(incomingByte == 54) //6
-  {
-    head->bottom();  
-  }
+  // Starting prearing for bluetooth
   
+  cmd.readNext();
+
+  if(cmd.headTop()){ head->top(); }
+  if(cmd.headBottom()){ head->bottom(); }
+  if(cmd.forward()){ tr->forward(); }
+  if(cmd.back()){ tr->back(); }
+  if(cmd.stopMe()){ tr->stopEngine(); }
+  if(cmd.left()){ tr->turnLeft(); }
+  if(cmd.right()){ tr->turnRight(); }
+
     bool isObstacle = obstacle.isObstacle();
     Serial.print("Is Obstacle: ");
     Serial.print(isObstacle);
@@ -106,8 +96,6 @@ void loop() {
       movingforward = true;
     }
     
-    Serial.println("New Loop");
     wdt_reset();
-      delay(DELAY_GOING_FORWARD);
-
+    delay(DELAY_GOING_FORWARD);
 }
