@@ -19,6 +19,7 @@ import java.util.Set;
 public class MainActivity extends AppCompatActivity {
 
     Button btnScan;
+    Button btnJoystick;
     ListView lstDevices;
     TextView txtInfo;
     private BluetoothAdapter bt = null;
@@ -32,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         lstDevices = (ListView) findViewById(R.id.lstDevices);
         btnScan = (Button) findViewById(R.id.btnScan);
+        btnJoystick = (Button) findViewById(R.id.btnJoystick);
         txtInfo = (TextView) findViewById(R.id.txtInfo);
         checkBt();
         btnScan.setOnClickListener(new View.OnClickListener() {
@@ -40,7 +42,16 @@ public class MainActivity extends AppCompatActivity {
                 txtInfo.setText("Clicked!");
                 searchDevices();
                 Toast.makeText(getApplicationContext(), "Clicked.", Toast.LENGTH_LONG).show();
+            }
+        });
 
+        btnJoystick.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, TrackActivity.class);
+
+                i.putExtra(EXTRA_ADDRESS, "test");
+                startActivity(i);
             }
         });
 

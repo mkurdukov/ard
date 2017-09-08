@@ -4,11 +4,21 @@ import android.app.ProgressDialog;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.AttributeSet;
+import android.view.MotionEvent;
+import android.view.SurfaceHolder;
+import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,8 +28,6 @@ import java.util.UUID;
 
 
 public class TrackActivity extends AppCompatActivity {
-
-
     Button btnToggle, btnDisconnect;
     String address = null;
     BluetoothAdapter bt = null;
@@ -56,7 +64,7 @@ public class TrackActivity extends AppCompatActivity {
             }
         });
 
-        new ConnectBT().execute();
+        //new ConnectBT().execute();
 
     }
 

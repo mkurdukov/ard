@@ -21,6 +21,13 @@
             android:text="TextView"
             tools:layout_editor_absoluteX="16dp"
             tools:layout_editor_absoluteY="276dp" />
+        <Button
+            android:id="@+id/btnJoystick"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Open Joystick"
+            tools:layout_editor_absoluteX="280dp"
+            tools:layout_editor_absoluteY="293dp" />
 
         <Button
             android:id="@+id/btnScan"
