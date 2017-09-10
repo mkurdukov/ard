@@ -14,6 +14,7 @@ import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.AttributeSet;
+import android.util.StringBuilderPrinter;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -24,10 +25,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
+import java.util.Dictionary;
+import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.UUID;
 
+import static android.R.attr.left;
+import static android.R.attr.right;
 
-public class TrackActivity extends AppCompatActivity {
+
+public class TrackActivity extends AppCompatActivity implements JoystickListener {
     Button btnToggle, btnDisconnect;
     String address = null;
     BluetoothAdapter bt = null;
@@ -57,14 +64,7 @@ public class TrackActivity extends AppCompatActivity {
             }
         });
 
-        btnToggle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toggle();
-            }
-        });
-
-        //new ConnectBT().execute();
+        new ConnectBT().execute();
 
     }
 
@@ -83,22 +83,35 @@ public class TrackActivity extends AppCompatActivity {
         }
         finish(); //return to the first layout
     }
-    boolean isOn = false;
-    private void Toggle()
-    {
+
+    @Override
+    public void onJoystickMoved(float xPercent, float yPercent, RobustDirection direction, int source) {
+        txtInfo.setText("X: " + xPercent + " Y: " + yPercent + "\n direction: " + direction.toString());
+
+        if(directionCommands.containsKey(direction))
+            sendCommand(directionCommands.get(direction));
+    }
+
+    HashMap<RobustDirection, String> directionCommands = new HashMap<RobustDirection, String>(){
+        {
+            put(RobustDirection.FORWARD, CommandDictionary.CMD_FORWARD);
+            put(RobustDirection.BACK, CommandDictionary.CMD_BACK);
+            put(RobustDirection.LEFT, CommandDictionary.CMD_LEFT);
+            put(RobustDirection.RIGHT, CommandDictionary.CMD_RIGHT);
+            put(RobustDirection.STOP, CommandDictionary.CMD_STOP);
+        }
+    };
+
+    private void sendCommand(String command){
         if (btSocket!=null)
         {
             try
             {
-                String s = (isOn ? "5" : "6").toString();
-
-                btSocket.getOutputStream().write(s.getBytes());
-                isOn = !isOn;
-                txtInfo.setText(s);
+                btSocket.getOutputStream().write(command.getBytes());
             }
             catch (IOException e)
             {
-                msg("Error");
+                msg("Error: " + e.getMessage());
             }
         }
     }
