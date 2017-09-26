@@ -20,7 +20,6 @@ const int SERVO_VERTICAL_PIN = 5, SERVO_HORIZONTAL_PIN = 6;
 const int MAX_FRONT_DISTANCE_CM = 40;
 const int MIN_FRONT_DISTANCE_CM = 10;
 
-
 Obstacle *obstacle;
 Lcd *lcd;
 Mtrack *tr;
