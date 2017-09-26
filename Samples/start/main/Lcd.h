@@ -13,8 +13,7 @@ class Lcd
 {
   public:
     Lcd(uint8_t address);
-    void init();
-    
+   
     void line1(const char t[]);
     void line2(const char t[]);
     void line3(const char t[]);

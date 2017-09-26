@@ -1,8 +1,6 @@
 #include "Arduino.h"
 #include "CommandDictionary.h"
 
-
-
 CommandDictionary::CommandDictionary(bool sendToSerial){
   _sendToSerial = sendToSerial;
   _lastCommand = 0;
@@ -13,9 +11,12 @@ CommandDictionary::CommandDictionary(bool sendToSerial){
 void CommandDictionary::readNext(){ 
   if (Serial.available() > 0) {
     _incomingByte = Serial.read();
-    Serial.print("I received: ");
-    Serial.println(_incomingByte);
+    //Serial.print("I received: ");
+    //Serial.println(_incomingByte);
+    return true;
   }
+
+  return false;
 }
 
 
